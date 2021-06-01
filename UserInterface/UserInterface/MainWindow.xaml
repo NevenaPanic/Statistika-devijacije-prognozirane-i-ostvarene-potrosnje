@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserInterface"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent ="WidthAndHeight" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        Title="MainWindow" SizeToContent ="WidthAndHeight" WindowStyle="None" AllowsTransparency="True" Background="Transparent" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
 
     <Canvas Height="450" Width="800">

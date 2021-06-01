@@ -1,5 +1,6 @@
 ﻿using DeljeniPodaci;
 using Microsoft.Win32;
+using PristupBaziPodataka.DAO.DAOImpl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +29,16 @@ namespace UserInterface
         ValidatorFajla vf = new ValidatorFajla();
         List<Potrosnja> procitanoOcekivano = new List<Potrosnja>();
         List<Potrosnja> procitanoOstvareno = new List<Potrosnja>();
+        PotrosnjaDAO p = new PotrosnjaDAO();
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
@@ -130,6 +137,12 @@ namespace UserInterface
                         lb_ocitan_fajl_ostvarene.Content = ofOstvarene.SafeFileName; // prvi "_" se ne ispisuje zbog labele
                         lb_ocitan_fajl_ostvarene.Foreground = Brushes.DarkGreen;
                         lb_ocitan_fajl_ostvarene.BorderBrush = Brushes.DarkGreen;
+                        p.UpisiSvePotrosnje(procitanoOstvareno, "OSTVARENA_POTROSNJA");
+                        p.UpisiSvePotrosnje(procitanoOcekivano, "PROGNOZIRANA_POTROSNJA");
+                        MessageBox.Show("Zavrsen upis u bazu", "Baza upis!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        foreach (Potrosnja p in procitanoOstvareno)
+                            Console.WriteLine(p);
                     }
                 }
             }
@@ -139,6 +152,5 @@ namespace UserInterface
                 lb_ocitan_fajl_ostvarene.Content = "Niste odabrali fajl!";
             }
         }
-    
     }
 }

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeljeniPodaci", "DeljeniPod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObradaPodataka", "ObradaPodataka\ObradaPodataka.csproj", "{6B3DE4FA-BC0B-4B8C-AA8C-5629627059AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PristupBazi", "PristupBazi\PristupBazi.csproj", "{676F44A7-9E53-41A7-92BD-C2DCC13AAD14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PristupBaziPodataka", "PristupBaziPodataka\PristupBaziPodataka.csproj", "{C0062767-CCFC-475A-A61C-1F1BDE4E6239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{6B3DE4FA-BC0B-4B8C-AA8C-5629627059AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B3DE4FA-BC0B-4B8C-AA8C-5629627059AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B3DE4FA-BC0B-4B8C-AA8C-5629627059AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{676F44A7-9E53-41A7-92BD-C2DCC13AAD14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{676F44A7-9E53-41A7-92BD-C2DCC13AAD14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{676F44A7-9E53-41A7-92BD-C2DCC13AAD14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{676F44A7-9E53-41A7-92BD-C2DCC13AAD14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

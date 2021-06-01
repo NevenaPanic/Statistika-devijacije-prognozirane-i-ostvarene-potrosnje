@@ -36,7 +36,7 @@ namespace DeljeniPodaci
         public override string ToString()
         {
             string r = "\n[DATUM CITANJA]: " + vremeUcitavanjaFajla;
-            r += "\n\t[DATUM POTROSNJE]: " + datumPotrosnje;
+            r += "\n\t[DATUM POTROSNJE]: " + datumPotrosnje.ToShortDateString();
             r += "\n\t[SAT]: " + sat;
             r += "\n\t[KOLICINA]: " + kolicina;
             r += "\n\t[SIFRA OBLASTI]: " + sifraOblasti;

@@ -1,2 +1,0 @@
-C:\Users\Stefan\Desktop\UserInterface\PristupBazi\obj\Debug\PristupBazi.csprojAssemblyReference.cache
-C:\Users\Stefan\Desktop\UserInterface\PristupBazi\obj\Debug\PristupBazi.csproj.CoreCompileInputs.cache
