@@ -75,9 +75,86 @@ namespace PristupBaziPodataka.DAO.DAOImpl
                 ParameterUtil.SetParameterValue(command, "kolicina_p", p.Koliicina);
                 ParameterUtil.SetParameterValue(command, "sifraOblasti_p", p.SifraOblasti);
                 ParameterUtil.SetParameterValue(command, "imeFajla_p", p.ImeFajla);
-                Console.WriteLine(p.VremeUcitavanjaFajla.ToString().Length);
                 ParameterUtil.SetParameterValue(command, "vremeUcitavanjaFajla_p", p.VremeUcitavanjaFajla.ToString());
                 command.ExecuteNonQuery();
+            }
+        }
+
+        public double ApsolutnaDevijacija(DateTime datumPocetka, DateTime datumKraja, string oblast) 
+        {
+            string pomP = datumPocetka.Year.ToString() + "-" + datumPocetka.Month.ToString() + "-" + datumPocetka.Day.ToString();
+            string pomK = datumKraja.Year.ToString() + "-" + datumKraja.Month.ToString() + "-" + datumKraja.Day.ToString();
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection()) 
+            {
+                connection.Open();
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    /*  SQL upit koji radi !
+                        select sum(ABS((o.kolicina - p.kolicina)/o.kolicina*100))/count(o.kolicina)
+                        from OSTVARENA_POTROSNJA  o, PROGNOZIRANA_POTROSNJA p
+                        where o.sifraOblasti like 'BGD' and p.sifraOblasti = o.sifraoblasti
+                        and o.datumPotrosnje = p.datumPotrosnje
+                        and o.datumPotrosnje between TO_DATE('2020-1-15' , 'YYYY-MM-DD') and TO_DATE('2020-12-12' , 'YYYY-MM-DD');
+                     */
+                    command.CommandText = " select cast(sum(ABS((o.kolicina - p.kolicina)/o.kolicina*100))/count(o.kolicina) as NUMERIC(11,7)) AS APSOLUTNA_DEVIJACIJA" +
+                                          " from OSTVARENA_POTROSNJA o, PROGNOZIRANA_POTROSNJA p" +
+                                          " where o.sifraOblasti like :oblast and p.sifraOblasti = o.sifraOblasti" +    
+                                          " and o.datumPotrosnje = p.datumPotrosnje" +
+                                          " and o.datumPotrosnje between TO_DATE(:datumP , 'YYYY-MM-DD') and TO_DATE(:datumK , 'YYYY-MM-DD')";
+
+                    ParameterUtil.AddParameter(command, "oblast", DbType.String);
+                    ParameterUtil.AddParameter(command, "datumP", DbType.String);
+                    ParameterUtil.AddParameter(command, "datumK", DbType.String);
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "oblast", oblast);
+                    ParameterUtil.SetParameterValue(command, "datumP", pomP);
+                    ParameterUtil.SetParameterValue(command, "datumK", pomK);
+
+                    if (command.ExecuteScalar() != DBNull.Value)
+                        return Convert.ToDouble(command.ExecuteScalar());
+                    else
+                        return -1;
+                }
+            }
+        }
+
+        public double KvadratnaDevijacija(DateTime datumPocetka, DateTime datumKraja, string oblast)
+        {
+            string pomP = datumPocetka.Year.ToString() + "-" + datumPocetka.Month.ToString() + "-" + datumPocetka.Day.ToString();
+            string pomK = datumKraja.Year.ToString() + "-" + datumKraja.Month.ToString() + "-" + datumKraja.Day.ToString();
+
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open();
+                using (IDbCommand command = connection.CreateCommand())
+                {
+                    /*  SQL upit koji radi !
+                        select CAST(SQRT(SUM(((o.kolicina - p.kolicina)/o.kolicina*100)*((o.kolicina - p.kolicina)/o.kolicina*100))) as NUMERIC(11,6)) as KVADRATNA_DEVIJACIJA
+                        from OSTVARENA_POTROSNJA  o, PROGNOZIRANA_POTROSNJA p
+                        where o.sifraOblasti like 'VOJ' and p.sifraOblasti = o.sifraoblasti
+                        and o.datumPotrosnje = p.datumPotrosnje
+                        and o.datumPotrosnje between TO_DATE('2020-1-15' , 'YYYY-MM-DD') and TO_DATE('2020-12-12' , 'YYYY-MM-DD');
+                     */
+                    command.CommandText = " select CAST(SQRT(SUM(((o.kolicina - p.kolicina)/o.kolicina*100)*((o.kolicina - p.kolicina)/o.kolicina*100))) as NUMERIC(11,6)) as KVADRATNA_DEVIJACIJA" +
+                                          " from OSTVARENA_POTROSNJA o, PROGNOZIRANA_POTROSNJA p" +
+                                          " where o.sifraOblasti like :oblast and p.sifraOblasti = o.sifraOblasti" +
+                                          " and o.datumPotrosnje = p.datumPotrosnje" +
+                                          " and o.datumPotrosnje between TO_DATE(:datumP , 'YYYY-MM-DD') and TO_DATE(:datumK , 'YYYY-MM-DD')";
+
+                    ParameterUtil.AddParameter(command, "oblast", DbType.String);
+                    ParameterUtil.AddParameter(command, "datumP", DbType.String);
+                    ParameterUtil.AddParameter(command, "datumK", DbType.String);
+                    command.Prepare();
+                    ParameterUtil.SetParameterValue(command, "oblast", oblast);
+                    ParameterUtil.SetParameterValue(command, "datumP", pomP);
+                    ParameterUtil.SetParameterValue(command, "datumK", pomK);
+
+                    if (command.ExecuteScalar() != DBNull.Value)
+                        return Convert.ToDouble(command.ExecuteScalar());
+                    else
+                        return -1;
+                }
             }
         }
     }

@@ -11,47 +11,7 @@ namespace ValidatorPodataka
     public class ValidatorFajla
     {
         public ValidatorFajla() { }
-        public List<Potrosnja> ProcitajFajl(string putanja) 
-        {
-            ValidatorFajla vf = new ValidatorFajla();
-            List<Potrosnja> potrosnja = new List<Potrosnja>();
-            StreamReader reader;
-
-            string[] deloviPutanje = putanja.Split('\\');
-            string imeFajla = deloviPutanje[deloviPutanje.Length - 1];
-
-            string tipFajla = imeFajla.Substring(imeFajla.Length-3, 3);
-                DateTime datumCitanja = DateTime.Now;
-                string[] datumParsiran = imeFajla.Split('_');
-
-            if (vf.ValidatorImenaFajla(imeFajla) == true && vf.ValidatorTipaFajla(putanja))
-            { 
-                reader = new StreamReader(File.OpenRead(putanja));
-                Potrosnja p;
-
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var values = line.Split('\t');
-
-                    if (!values[0].Equals("Sat"))
-                    {
-                        // sat, vrednost, oblast
-                        int sat;
-                        Int32.TryParse(values[0], out sat);
-
-                        float kolicina;
-                        float.TryParse(values[1], out kolicina);
-
-                        p = new Potrosnja(new DateTime(Int32.Parse(datumParsiran[1]), Int32.Parse(datumParsiran[2]), Int32.Parse(datumParsiran[3].Substring(0, 2))), sat, kolicina, values[2], imeFajla, datumCitanja);
-                        potrosnja.Add(p);
-
-                    }
-                }
-            }
-            return potrosnja;
-        }
-
+      
         public bool ValidatorImenaFajla(string imeFajla) 
         {
             string[] imeParsirano = imeFajla.Split('_');
@@ -71,7 +31,6 @@ namespace ValidatorPodataka
 
         public bool ValidatorTipaFajla(string putanja)
         {
-
             if (Path.GetExtension(putanja).Equals(".csv"))
                 return true;
             else
@@ -97,6 +56,33 @@ namespace ValidatorPodataka
                 return false;
 
             return true;
+        }
+
+        public string ValidirajPodatke(List<Potrosnja> procitano)
+        {
+            string errorPoruka = "";
+            ValidatorFajla v = new ValidatorFajla();
+
+            if (v.ValidacijaPodatakaUFajlu(procitano) == false)
+                errorPoruka = "Neispravni podaci unutar fajla!";
+
+            return errorPoruka;
+        }
+
+        public string ValidirajPutanju(string putanjaFajla)
+        {
+            string errorPoruka = "";
+            ValidatorFajla v = new ValidatorFajla();
+
+            string[] deloviPutanje = putanjaFajla.Split('\\');
+            string imeFajla = deloviPutanje[deloviPutanje.Length - 1];
+
+            if (v.ValidatorTipaFajla(putanjaFajla) == false)
+                errorPoruka += "Pogresan tip fajla! Molimo Vas unesite novi \".csv\" fajl! \n";
+            else if (v.ValidatorImenaFajla(imeFajla) == false)
+                errorPoruka += "Neispravan format imena fajla! Molimo Vas unesite novi \".csv\" fajl! \n";
+
+            return errorPoruka;
         }
     }
 }

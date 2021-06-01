@@ -11,5 +11,7 @@ namespace PristupBaziPodataka.DAO
     {
         void UpisiPotrosnju(Potrosnja p, string imeTabele);
         void UpisiSvePotrosnje(List<Potrosnja> potrosnje, string imeTabele);
+        double ApsolutnaDevijacija(DateTime datumPocetka, DateTime datumKraja, string oblast);
+        double KvadratnaDevijacija(DateTime datumPocetka, DateTime datumKraja, string oblast);
     }
 }

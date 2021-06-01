@@ -28,30 +28,30 @@
                 </PathGeometry>
             </Path.Data>
         </Path>
-        <Label x:Name="lb_nos_fajlova" Content="Unos fajlova za očitavanje:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="66" Canvas.Top="70"/>
+        <Label x:Name="lb_nos_fajlova" Content="Unos fajlova za očitavanje:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="66" Canvas.Top="70" RenderTransformOrigin="0.485,0.703"/>
         <Button x:Name="btn_ocitaj_fajl_prognozirane"  Content="Učitaj fajl očekivane potrošnje" Background="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="115" Click="btn_ocitaj_fajl_ocekivane_Click"/>
         <Label x:Name="lb_ocitan_fajl_ocekivane" HorizontalContentAlignment="Center" VerticalContentAlignment = "Center"  BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Height="30" Canvas.Left="66" Canvas.Top="140"/>
         <Button x:Name="btn_ocitaj_fajl_ostvarene" Content="Učitaj fajl ostvarene potrošnje" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="186" Click="btn_ocitaj_fajl_ostvarene_Click"/>
         <Label x:Name="lb_ocitan_fajl_ostvarene" HorizontalContentAlignment="Center" VerticalContentAlignment = "Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Height="30" Canvas.Left="66" Canvas.Top="210"/>
-        <Button x:Name="btn_ucitaj" Content="Ucitaj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="273" />
+        <Button x:Name="btn_ucitaj" Content="Ucitaj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="273" Click="btn_ucitaj_Click" />
         <Label x:Name="lb_nos_za_filter" Content="Unos podataka proračuna:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="70"/>
-        <Label x:Name="dp_pocetka" Content="Datum početka:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="103"/>
-        <DatePicker x:Name="lb_pocetak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="129"/>
+        <Label x:Name="lb_pocetka" Content="Datum početka:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="103"/>
+        <DatePicker x:Name="dp_pocetak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="129"/>
         <Label x:Name="dp_kraja" Content="Datum kraja:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="152"/>
         <DatePicker x:Name="dp_kraj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="178"/>
         <Label x:Name="lb_unos_podrucje" Content="Unesi geografsko područje:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Canvas.Left="295" Canvas.Top="201"/>
         <TextBox x:Name="tb_uneto_podrucje" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="227"/>
-        <Button x:Name="btn_racunaj" Content="Proračunaj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="273"/>
+        <Button x:Name="btn_racunaj" Content="Proračunaj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="273" Click="btn_racunaj_Click"/>
         <Label x:Name="Evidencija_podrucja" Content="Evidencija geografskih područja:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="188" Canvas.Left="553" Canvas.Top="70"/>
         <Label x:Name="lb_sifra" Content="Unesi šifra područja:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="188" Canvas.Left="553" Canvas.Top="103"/>
         <TextBox x:Name="tb_sifra" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Canvas.Left="553" Canvas.Top="129"/>
         <Label x:Name="lb_ime" Content="Unesi ime područja:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="188" Canvas.Left="553" Canvas.Top="152"/>
         <TextBox x:Name="tb_ime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap"  VerticalAlignment="Top" Width="188" Canvas.Left="553" Canvas.Top="178"/>
         <Button x:Name="btn_evidentiraj" Content="Evidentiraj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="188" Canvas.Left="553" Canvas.Top="212"/>
-        <Label Content="KVADRATNA DEVIJACIJA POTROŠNJE OD OČEKIVANE:" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="306" Canvas.Left="212" Canvas.Top="315"/>
-        <Label Content="APSOLUTNA DEVIJACIJA POTROŠNJE OD OČEKIVANE:" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="306" Canvas.Left="212" Canvas.Top="355"/>
-        <Label x:Name="lb_kvadratna" BorderBrush="DarkRed" BorderThickness="2" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="25" Canvas.Left="553" Canvas.Top="315"/>
-        <Label x:Name="lb_apsolutna" BorderBrush="DarkRed" BorderThickness="2" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="150" Canvas.Left="553" Canvas.Top="355"/>
+        <Label Content="KVADRATNA DEVIJACIJA POTROŠNJE OD OČEKIVANE:" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="306" Canvas.Left="212" Canvas.Top="306"/>
+        <Label Content="APSOLUTNA DEVIJACIJA POTROŠNJE OD OČEKIVANE:" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="306" Canvas.Left="212" Canvas.Top="345"/>
+        <Label x:Name="lb_kvadratna" BorderBrush="DarkRed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="35" Canvas.Left="553" Canvas.Top="306"/>
+        <Label x:Name="lb_apsolutna" BorderBrush="DarkRed" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="150" Canvas.Left="553" Canvas.Top="345"/>
         <Button x:Name="btn_close" Content="Ugasi aplikaciju" Background="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="20" Click="btn_close_Click" Canvas.Left="632" Canvas.Top="406"/>
         <Label x:Name="lb_naziv" Content="Statistika devijacije prognozirane i ostvarene potrošnje" Canvas.Left="66" Canvas.Top="22" Width="675" Height="43" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" FontWeight="DemiBold"/>
 

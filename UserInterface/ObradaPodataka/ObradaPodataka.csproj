@@ -46,11 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="KontrolerPodacima.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DeljeniPodaci\DeljeniPodaci.csproj">
+      <Project>{7f0c2086-01e1-4ca7-b9a6-56ac7c94c46e}</Project>
+      <Name>DeljeniPodaci</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PristupBaziPodataka\PristupBaziPodataka.csproj">
+      <Project>{c0062767-ccfc-475a-a61c-1f1bde4e6239}</Project>
+      <Name>PristupBaziPodataka</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ValidatorPodataka\ValidatorPodataka.csproj">
+      <Project>{c3939d05-1cb4-44fc-b335-40f59a470fed}</Project>
+      <Name>ValidatorPodataka</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

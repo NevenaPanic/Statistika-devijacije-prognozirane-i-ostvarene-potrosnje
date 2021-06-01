@@ -99,6 +99,10 @@
       <Project>{7f0c2086-01e1-4ca7-b9a6-56ac7c94c46e}</Project>
       <Name>DeljeniPodaci</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ObradaPodataka\ObradaPodataka.csproj">
+      <Project>{6b3de4fa-bc0b-4b8c-aa8c-5629627059ac}</Project>
+      <Name>ObradaPodataka</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PristupBaziPodataka\PristupBaziPodataka.csproj">
       <Project>{c0062767-ccfc-475a-a61c-1f1bde4e6239}</Project>
       <Name>PristupBaziPodataka</Name>

@@ -1,5 +1,6 @@
 ﻿using DeljeniPodaci;
 using Microsoft.Win32;
+using ObradaPodataka;
 using PristupBaziPodataka.DAO.DAOImpl;
 using System;
 using System.Collections.Generic;
@@ -26,10 +27,13 @@ namespace UserInterface
     {
         OpenFileDialog ofOcekivane = new OpenFileDialog();
         OpenFileDialog ofOstvarene = new OpenFileDialog();
+
         ValidatorFajla vf = new ValidatorFajla();
+        PotrosnjaDAO p = new PotrosnjaDAO();
+        KontrolerPodacima kontoler = new KontrolerPodacima() { };
+
         List<Potrosnja> procitanoOcekivano = new List<Potrosnja>();
         List<Potrosnja> procitanoOstvareno = new List<Potrosnja>();
-        PotrosnjaDAO p = new PotrosnjaDAO();
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -48,7 +52,6 @@ namespace UserInterface
 
         private void btn_ocitaj_fajl_ocekivane_Click(object sender, RoutedEventArgs e)
         {
-
             lb_ocitan_fajl_ocekivane.Foreground = Brushes.Red;
             lb_ocitan_fajl_ocekivane.BorderBrush = Brushes.Red;
             lb_ocitan_fajl_ocekivane.BorderThickness = new Thickness(1);
@@ -56,34 +59,24 @@ namespace UserInterface
             if (ofOcekivane.ShowDialog() == true)
             {
                 string putanjaFajla = ofOcekivane.FileName;
-                
 
-                if (vf.ValidatorTipaFajla(putanjaFajla) == false || vf.ValidatorImenaFajla(ofOcekivane.SafeFileName) == false)
+                string validan = vf.ValidirajPutanju(putanjaFajla);
+                if (!validan.Equals(String.Empty))
                 {
-                    // podesavanje izgleda interface-a
-                    if (vf.ValidatorTipaFajla(putanjaFajla) == false)
-                    {
-                        lb_ocitan_fajl_ocekivane.Content = "Pogresan tip fajla!";
-                        MessageBox.Show("Pogresan tip fajla! Molimo Vas unesite novi \".csv\" fajl!", "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else
-                    {
-                        lb_ocitan_fajl_ocekivane.Content = "Pogresno ime fajla!";
-                        MessageBox.Show("Pogresan format imena fajla! Molimo Vas unesite novi fajl u formatu ostv_YYYY_MM_DD ili prog_YYYY_MM_DD!", "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                        lb_ocitan_fajl_ocekivane.Content = "Nevalidan fajl!";
+                        MessageBox.Show(validan, "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    procitanoOcekivano = vf.ProcitajFajl(putanjaFajla);
-                    if (vf.ValidacijaPodatakaUFajlu(procitanoOcekivano) == false)
+                    procitanoOcekivano = kontoler.ProcitajFajl(putanjaFajla);
+                    validan = vf.ValidirajPodatke(procitanoOcekivano);
+                    if (!validan.Equals(String.Empty))
                     {
-                        // pokriveni su slucaji pogesnog broja sati u danu i pogresnog broja podataka za jednu oblast
-                        MessageBox.Show("Podaci koji se nalaze unutar fajla koji ste odabrali su nevalidni!", "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(validan, "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
                         lb_ocitan_fajl_ocekivane.Content = "Nevalidan fajl!";
                     }
                     else
                     {
-                        // podesavanje izgleda interface-a
                         lb_ocitan_fajl_ocekivane.Content = ofOcekivane.SafeFileName; // prvi "_" se ne ispisuje zbog labele
                         lb_ocitan_fajl_ocekivane.Foreground = Brushes.DarkGreen;
                         lb_ocitan_fajl_ocekivane.BorderBrush = Brushes.DarkGreen;
@@ -92,7 +85,6 @@ namespace UserInterface
             }
             else if (ofOcekivane.ShowDialog() == false)
             {
-                // podesavanje izgleda interface-a
                 lb_ocitan_fajl_ocekivane.Content = "Niste odabrali fajl!";
             }               
         }
@@ -107,50 +99,63 @@ namespace UserInterface
             {
                 string putanjaFajlaOstvareno = ofOstvarene.FileName;
 
+                string validno = vf.ValidirajPutanju(putanjaFajlaOstvareno);
 
-                if (vf.ValidatorTipaFajla(putanjaFajlaOstvareno) == false || vf.ValidatorImenaFajla(ofOstvarene.SafeFileName) == false)
+                if (!validno.Equals(String.Empty))
                 {
-                    // podesavanje izgleda interface-a
-                    if (vf.ValidatorTipaFajla(putanjaFajlaOstvareno) == false)
-                    {
-                        lb_ocitan_fajl_ostvarene.Content = "Pogresan tip fajla!";
-                        MessageBox.Show("Pogresan tip fajla! Molimo Vas unesite novi \".csv\" fajl!", "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else
-                    {
-                        lb_ocitan_fajl_ostvarene.Content = "Pogresno ime fajla!";
-                        MessageBox.Show("Pogresan format imena fajla! Molimo Vas unesite novi fajl u formatu ostv_YYYY_MM_DD ili prog_YYYY_MM_DD!", "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    lb_ocitan_fajl_ostvarene.Content = "Nevalidan fajl!";
+                    MessageBox.Show(validno, "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    procitanoOstvareno = vf.ProcitajFajl(putanjaFajlaOstvareno);
-                    if (vf.ValidacijaPodatakaUFajlu(procitanoOstvareno) == false)
+                    procitanoOstvareno = kontoler.ProcitajFajl(putanjaFajlaOstvareno);
+                    validno = vf.ValidirajPodatke(procitanoOstvareno);
+                    if (!validno.Equals(String.Empty))
                     {
-                        // pokriveni su slucaji pogesnog broja sati u danu i pogresnog broja podataka za jednu oblast
-                        MessageBox.Show("Podaci koji se nalaze unutar fajla koji ste odabrali su nevalidni!", "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(validno, "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
                         lb_ocitan_fajl_ostvarene.Content = "Nevalidan fajl!";
                     }
                     else
                     {
-                        // podesavanje izgleda interface-a
                         lb_ocitan_fajl_ostvarene.Content = ofOstvarene.SafeFileName; // prvi "_" se ne ispisuje zbog labele
                         lb_ocitan_fajl_ostvarene.Foreground = Brushes.DarkGreen;
                         lb_ocitan_fajl_ostvarene.BorderBrush = Brushes.DarkGreen;
-                        p.UpisiSvePotrosnje(procitanoOstvareno, "OSTVARENA_POTROSNJA");
-                        p.UpisiSvePotrosnje(procitanoOcekivano, "PROGNOZIRANA_POTROSNJA");
-                        MessageBox.Show("Zavrsen upis u bazu", "Baza upis!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                        foreach (Potrosnja p in procitanoOstvareno)
-                            Console.WriteLine(p);
                     }
                 }
             }
             else if (ofOstvarene.ShowDialog() == false)
             {
-                // podesavanje izgleda interface-a
                 lb_ocitan_fajl_ostvarene.Content = "Niste odabrali fajl!";
             }
+        }
+
+        private void btn_ucitaj_Click(object sender, RoutedEventArgs e)
+        {
+            if (!lb_ocitan_fajl_ocekivane.Content.Equals("Nevalidan fajl!") && !lb_ocitan_fajl_ostvarene.Content.Equals("Nevalidan fajl!")
+                && !lb_ocitan_fajl_ocekivane.Content.Equals("Niste odabrali fajl!") && !lb_ocitan_fajl_ostvarene.Content.Equals("Niste odabrali fajl!"))
+            {
+                kontoler.UpisFajlovaUBazu(procitanoOcekivano, procitanoOstvareno);
+                MessageBox.Show("Zavrsen upis u bazu", "Baza upis!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Nemoguce je izvrsiti upis u bazu sa nevalidnim fajlovima!", "Neuspeli upis u bazu!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void btn_racunaj_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime pocetak = dp_pocetak.SelectedDate.GetValueOrDefault();
+            DateTime kraj = dp_kraj.SelectedDate.GetValueOrDefault();
+            string oblast = tb_uneto_podrucje.Text;
+
+            if (pocetak != DateTime.MinValue && kraj != DateTime.MinValue && pocetak <= kraj && !oblast.Equals(String.Empty))
+            {
+                lb_apsolutna.Content = kontoler.ApsoltnaDevijacijaPotrosnje(pocetak, kraj, oblast);
+                lb_kvadratna.Content = kontoler.KvadratnaDevijacijaPotrosnje(pocetak, kraj, oblast);
+            }
+
         }
     }
 }
