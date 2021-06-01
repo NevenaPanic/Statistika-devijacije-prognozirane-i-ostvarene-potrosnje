@@ -1,0 +1,7 @@
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\bin\Debug\ObradaPodataka.exe.config
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\bin\Debug\ObradaPodataka.exe
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\bin\Debug\ObradaPodataka.pdb
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\obj\Debug\ObradaPodataka.csprojAssemblyReference.cache
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\obj\Debug\ObradaPodataka.csproj.CoreCompileInputs.cache
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\obj\Debug\ObradaPodataka.exe
+C:\Users\Stefan\Desktop\UserInterface\ObradaPodataka\obj\Debug\ObradaPodataka.pdb
