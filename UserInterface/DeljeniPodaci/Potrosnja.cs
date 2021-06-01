@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeljeniPodaci.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DeljeniPodaci
 {
-    public class Potrosnja
+    public class Potrosnja : IPotrosnja
     {
         DateTime datumPotrosnje;
         int sat;
@@ -18,6 +19,11 @@ namespace DeljeniPodaci
         public Potrosnja() { }
         public Potrosnja(DateTime datumPotrosnje, int sat, float kolicina, string sifraOblasti, string imeFajla, DateTime vremeUcitavanjaFajla)
         {
+            if (sifraOblasti == null || imeFajla == null)
+                throw new ArgumentNullException();
+            if (sat <= 0 || sat > 25 || kolicina < 0 || sifraOblasti.Trim().Equals(string.Empty) || imeFajla.Trim().Equals(string.Empty))
+                throw new ArgumentException();
+
             this.datumPotrosnje = datumPotrosnje;
             this.sat = sat;
             this.kolicina = kolicina;
@@ -27,22 +33,10 @@ namespace DeljeniPodaci
         }
 
         public DateTime DatumPotrosnje { get => datumPotrosnje; set => datumPotrosnje = value; }
-        public int Sat { get => sat; set => sat = value; }
+        public int Sat { get => sat; set => sat = value;}
         public float Kolicina { get => kolicina; set => kolicina = value; }
         public string SifraOblasti { get => sifraOblasti; set => sifraOblasti = value; }
         public string ImeFajla { get => imeFajla; set => imeFajla = value; }
         public DateTime VremeUcitavanjaFajla { get => vremeUcitavanjaFajla; set => vremeUcitavanjaFajla = value; }
-
-        public override string ToString()
-        {
-            string r = "\n[DATUM CITANJA]: " + vremeUcitavanjaFajla;
-            r += "\n\t[DATUM POTROSNJE]: " + datumPotrosnje.ToShortDateString();
-            r += "\n\t[SAT]: " + sat;
-            r += "\n\t[KOLICINA]: " + kolicina;
-            r += "\n\t[SIFRA OBLASTI]: " + sifraOblasti;
-            r += "\n\t[IME FAJLA]: " + imeFajla;
-
-            return r;
-        }
     }
 }

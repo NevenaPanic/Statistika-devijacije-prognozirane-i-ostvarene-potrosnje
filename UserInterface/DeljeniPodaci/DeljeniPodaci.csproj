@@ -42,8 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeografskoPodrucje.cs" />
+    <Compile Include="Interfaces\IFunkcijeProracunaDevijacije.cs" />
+    <Compile Include="Interfaces\IGepgrafskoPodrucje.cs" />
+    <Compile Include="Interfaces\IPotrosnja.cs" />
+    <Compile Include="Interfaces\IValidatorPodataka.cs" />
+    <Compile Include="Interfaces\IWriteXML.cs" />
     <Compile Include="Potrosnja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

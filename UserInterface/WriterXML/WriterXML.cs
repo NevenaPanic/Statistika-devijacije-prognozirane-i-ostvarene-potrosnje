@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeljeniPodaci.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,32 @@ using System.Xml;
 
 namespace WriterXML
 {
-    public class WriterXML
+    public class WriterXML : IWriteXML
     {
         public WriterXML() { }
-        public void Write(DateTime pocetak, DateTime kraj, string oblast, string kvadratna, string apsolutna, string putanja)
+        public void Write(string pocetak, string kraj, string oblast, string kvadratna, string apsolutna, string putanja)
         {
+            if (pocetak == null || kraj == null || oblast == null || kvadratna == null || apsolutna == null || putanja == null)
+                throw new ArgumentNullException("Argumenti ne smeju biti null vrednosti!");
+
+            if (pocetak.Trim() == "")
+                throw new ArgumentException();
+            
+            if (kraj.Trim() == "")
+                throw new ArgumentException();
+
+            if (oblast.Trim() == "")
+                throw new ArgumentException("Niste uneli oblast!");
+
+            if (kvadratna.Trim() == "")
+                throw new ArgumentException("Nije popunjen rezultat kvadratne devijacije!");
+
+            if (apsolutna.Trim() == "")
+                throw new ArgumentException("Nije popunjen rezultat apsoliutne devijacije!");
+
+            if (putanja.Trim() == "")
+                throw new ArgumentException("Nije uneta putanja u koju zelite da snimite fajl!");
+
             XmlWriter writer = XmlWriter.Create(putanja);
 
             writer.WriteStartDocument();
@@ -20,9 +42,9 @@ namespace WriterXML
             writer.WriteWhitespace("\n\t");
             writer.WriteElementString("OBLAST", oblast);
             writer.WriteWhitespace("\n\t");
-            writer.WriteElementString("DATUM_POČETKA", pocetak.ToShortDateString());
+            writer.WriteElementString("DATUM_POČETKA", pocetak);
             writer.WriteWhitespace("\n\t");
-            writer.WriteElementString("DATUM_KRAJA", kraj.ToShortDateString());
+            writer.WriteElementString("DATUM_KRAJA", kraj);
             writer.WriteWhitespace("\n\t");
             writer.WriteElementString("KVADRATNA_DEVIJACIJA", kvadratna.ToString());
             writer.WriteWhitespace("\n\t");

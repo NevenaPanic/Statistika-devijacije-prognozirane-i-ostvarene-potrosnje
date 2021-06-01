@@ -27,7 +27,17 @@ namespace ObradaPodataka
             int brojacPodrucja = 0;
             DateTime datumCitanja = DateTime.Now;
             string imeFajla = putanja.Substring(putanja.Length - 19, 19);
+            // datum
             string[] datumParsiran = imeFajla.Split('_');
+            DateTime datum = new DateTime(Int32.Parse(datumParsiran[1]), Int32.Parse(datumParsiran[2]), Int32.Parse(datumParsiran[3].Substring(0, 2)));
+
+            int indikatorNovogPodrucja;
+            if (datum.DayOfWeek.ToString().Equals("Sunday") && datum.Month == 3 && datum.Day > 24 && datum.Day < 32)
+                indikatorNovogPodrucja = 23;
+            else if (datum.DayOfWeek.ToString().Equals("Sunday") && datum.Month == 10 && datum.Day > 24 && datum.Day < 32)
+                indikatorNovogPodrucja = 25;
+            else
+                indikatorNovogPodrucja = 24;
 
             if (vf.ValidatorImenaFajla(imeFajla) == true && vf.ValidatorTipaFajla(putanja))
             {
@@ -49,9 +59,10 @@ namespace ObradaPodataka
                         float kolicina;
                         float.TryParse(values[1], out kolicina);
 
-                        p = new Potrosnja(new DateTime(Int32.Parse(datumParsiran[1]), Int32.Parse(datumParsiran[2]), Int32.Parse(datumParsiran[3].Substring(0, 2))), sat, kolicina, values[2], imeFajla, datumCitanja);
+                        p = new Potrosnja(datum, sat, kolicina, values[2], imeFajla, datumCitanja);
                         potrosnja.Add(p);
-                        if (brojacPodrucja % 24 == 0)
+
+                        if (brojacPodrucja % indikatorNovogPodrucja == 0)
                         {   // provera ako ne postoji GP u bazi upisi ga sa vrednostima sifre na oba mesta
                             if (!g.PostojiPoId(p.SifraOblasti.ToUpper()))
                             {

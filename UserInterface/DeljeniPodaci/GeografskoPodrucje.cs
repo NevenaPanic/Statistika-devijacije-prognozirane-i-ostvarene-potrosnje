@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeljeniPodaci.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DeljeniPodaci
 {
-    public class GeografskoPodrucje
+    public class GeografskoPodrucje : IGepgrafskoPodrucje
     {
         string ime;
         string sifra;
@@ -14,6 +15,11 @@ namespace DeljeniPodaci
         public GeografskoPodrucje() { }
         public GeografskoPodrucje(string ime, string sifra)
         {
+            if (ime == null || sifra == null)
+                throw new ArgumentNullException();
+            if (ime.Trim().Equals(String.Empty) || sifra.Trim().Equals(String.Empty))
+                throw new ArgumentException();
+
             this.ime = ime;
             this.sifra = sifra;
         }

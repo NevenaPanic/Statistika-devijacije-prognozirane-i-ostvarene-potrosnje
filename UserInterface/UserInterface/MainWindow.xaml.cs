@@ -171,6 +171,12 @@ namespace UserInterface
                 return;
             }
 
+            if (pocetak == DateTime.MinValue || kraj == DateTime.MinValue)
+            {
+                MessageBox.Show("Morate da unesete oba datuma!", "Neispravni podaci za proračun!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (pocetak != DateTime.MinValue && kraj != DateTime.MinValue && pocetak <= kraj && !oblast.Equals(String.Empty))
             {
                 kvadratnaDevijacija = kontoler.KvadratnaDevijacijaPotrosnje(pocetak, kraj, oblast.ToUpper());
@@ -237,7 +243,7 @@ namespace UserInterface
                 if (sfEksport.ShowDialog() == true)
                 {
                     string putanja = sfEksport.FileName;
-                    writer.Write(dp_pocetak.SelectedDate.Value, dp_kraja.SelectedDate.Value, tb_uneto_podrucje.Text.ToUpper().Trim(), lb_kvadratna.Content.ToString(), lb_apsolutna.Content.ToString(), putanja);
+                    writer.Write(dp_pocetak.SelectedDate.Value.ToShortDateString(), dp_kraja.SelectedDate.Value.ToShortDateString(), tb_uneto_podrucje.Text.ToUpper().Trim(), lb_kvadratna.Content.ToString(), lb_apsolutna.Content.ToString(), putanja);
                     MessageBox.Show("Uspešno ste izvezli podatke u " + sfEksport.SafeFileName + " fajl!", "Uspešan upis u fajl!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
