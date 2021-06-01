@@ -141,7 +141,7 @@ namespace PristupBaziPodataka.DAO.DAOImpl
             return listaPotrosnja;
         }
 
-        // Nece da ovako radimo
+        // Necemo da radimo ovako
         public double ApsolutnaDevijacija(DateTime datumPocetka, DateTime datumKraja, string oblast) 
         {
             string pomP = datumPocetka.Day.ToString() + "-" + datumPocetka.Month.ToString() + "-" + datumPocetka.Year.ToString();

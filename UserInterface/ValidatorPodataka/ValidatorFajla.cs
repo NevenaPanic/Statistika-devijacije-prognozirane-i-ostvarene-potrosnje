@@ -15,12 +15,34 @@ namespace ValidatorPodataka
         public bool ValidatorImenaFajla(string imeFajla) 
         {
             string[] imeParsirano = imeFajla.Split('_');
-
+            int godina, mesec, dan;
             try
             {
-                Int32.Parse(imeParsirano[1]);
-                Int32.Parse(imeParsirano[2]);
-                Int32.Parse(imeParsirano[3].Substring(0, 2));
+                godina = Int32.Parse(imeParsirano[1]);
+                mesec = Int32.Parse(imeParsirano[2]);
+                dan = Int32.Parse(imeParsirano[3].Substring(0, 2));
+
+                if (godina < 0 || mesec < 1 || dan < 1)
+                    return false;
+                List<int> meseciSa31Danom = new List<int>();
+                meseciSa31Danom.Add(1); meseciSa31Danom.Add(3); meseciSa31Danom.Add(5); meseciSa31Danom.Add(7);
+                meseciSa31Danom.Add(8); meseciSa31Danom.Add(10); meseciSa31Danom.Add(12);
+
+                if (meseciSa31Danom.Contains(mesec))
+                {
+                    if (dan > 31)
+                        return false;
+                }
+                else if (mesec != 2)
+                {
+                    if (dan > 30)
+                        return false;
+                }
+
+
+                if (mesec == 2 && dan >= 29 && godina % 4 != 0)
+                    return false;
+
                 return true;
             }
             catch (Exception)
@@ -37,7 +59,7 @@ namespace ValidatorPodataka
                 return false;
         }
 
-        public bool ValidacijaPodatakaUFajlu(List<Potrosnja> procitano)
+        public bool ValidacijaPodatakaUFajlu(List<Potrosnja> procitano, DateTime datum)
         {
             int brojacSati = 0;
             bool greska = false;
@@ -52,18 +74,34 @@ namespace ValidatorPodataka
                 }
             }
 
+            if (datum.DayOfWeek.Equals("Sunday") && datum.Month == 3 && datum.Day > 24 && datum.Day < 32)
+            {
+                if (brojacSati == 23 && greska == false)
+                    return true;
+                else
+                    return false;
+            }
+
+            if (datum.DayOfWeek.Equals("Sunday") && datum.Month == 10 && datum.Day > 24 && datum.Day < 32)
+            {
+                if (brojacSati == 25 && greska == false)
+                    return true;
+                else
+                    return false;
+            }
+
             if (greska == true || brojacSati % 300 != 0)
                 return false;
 
             return true;
         }
 
-        public string ValidirajPodatke(List<Potrosnja> procitano)
+        public string ValidirajPodatke(List<Potrosnja> procitano, DateTime datum)
         {
             string errorPoruka = "";
             ValidatorFajla v = new ValidatorFajla();
 
-            if (v.ValidacijaPodatakaUFajlu(procitano) == false)
+            if (v.ValidacijaPodatakaUFajlu(procitano, datum) == false)
                 errorPoruka = "Neispravni podaci unutar fajla!";
 
             return errorPoruka;

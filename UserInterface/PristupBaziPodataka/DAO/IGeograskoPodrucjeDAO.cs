@@ -9,5 +9,6 @@ namespace PristupBaziPodataka.DAO
     public interface IGeograskoPodrucjeDAO
     {
         void UpisiGP(string sifraOblasti, string ime);
+        bool PostojiPoId(string sifraOblasti);
     }
 }

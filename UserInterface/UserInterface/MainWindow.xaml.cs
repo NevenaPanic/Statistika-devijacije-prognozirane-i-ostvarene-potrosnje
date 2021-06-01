@@ -31,12 +31,13 @@ namespace UserInterface
         SaveFileDialog sfEksport = new SaveFileDialog();
 
         ValidatorFajla vf = new ValidatorFajla();
-        PotrosnjaDAO p = new PotrosnjaDAO();
         KontrolerPodacima kontoler = new KontrolerPodacima() { };
         WriterXML.WriterXML writer = new WriterXML.WriterXML();
 
         List<Potrosnja> procitanoOcekivano = new List<Potrosnja>();
         List<Potrosnja> procitanoOstvareno = new List<Potrosnja>();
+        private static double apsolutnaDevijacija;
+        private static double kvadratnaDevijacija;
         public MainWindow()
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -77,7 +78,9 @@ namespace UserInterface
                 else
                 {
                     procitanoOcekivano = kontoler.ProcitajFajl(putanjaFajla);
-                    validan = vf.ValidirajPodatke(procitanoOcekivano);
+                    string[] deloviDatuma = ofOcekivane.SafeFileName.Substring(0,15).Split('_');
+                    DateTime datum = new DateTime(Int32.Parse(deloviDatuma[1]), Int32.Parse(deloviDatuma[2]), Int32.Parse(deloviDatuma[3]));
+                    validan = vf.ValidirajPodatke(procitanoOcekivano, datum);
                     if (!validan.Equals(String.Empty))
                     {
                         MessageBox.Show(validan, "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -117,7 +120,9 @@ namespace UserInterface
                 else
                 {
                     procitanoOstvareno = kontoler.ProcitajFajl(putanjaFajlaOstvareno);
-                    validno = vf.ValidirajPodatke(procitanoOstvareno);
+                    string[] deloviDatuma = ofOstvarene.SafeFileName.Substring(0,15).Split('_');
+                    DateTime datum = new DateTime(Int32.Parse(deloviDatuma[1]), Int32.Parse(deloviDatuma[2]), Int32.Parse(deloviDatuma[3]));
+                    validno = vf.ValidirajPodatke(procitanoOstvareno, datum);
                     if (!validno.Equals(String.Empty))
                     {
                         MessageBox.Show(validno, "Nevalidan fajl!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -160,12 +165,18 @@ namespace UserInterface
             DateTime kraj = dp_kraja.SelectedDate.GetValueOrDefault();
             string oblast = tb_uneto_podrucje.Text;
 
+            if (!kontoler.PostojiGP(oblast))
+            {
+                MessageBox.Show("Ne postoji geografsko područje sa tom šifrom!", "Neispravni podaci za proračun!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (pocetak != DateTime.MinValue && kraj != DateTime.MinValue && pocetak <= kraj && !oblast.Equals(String.Empty))
             {
-                double kvadratna = kontoler.KvadratnaDevijacijaPotrosnje(pocetak, kraj, oblast.ToUpper());
-                double apsolutna = kontoler.ApsoltnaDevijacijaPotrosnje(pocetak, kraj, oblast.ToUpper());
+                kvadratnaDevijacija = kontoler.KvadratnaDevijacijaPotrosnje(pocetak, kraj, oblast.ToUpper());
+                apsolutnaDevijacija = kontoler.ApsoltnaDevijacijaPotrosnje(pocetak, kraj, oblast.ToUpper());
 
-                switch (apsolutna)
+                switch (apsolutnaDevijacija)
                 {
                     case -2:
                         MessageBox.Show("Nema podataka o prognoziranoj potrošnji za zadate parametre!", "Nije moguće izračunati devijacije!", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -183,8 +194,8 @@ namespace UserInterface
                         lb_apsolutna.Content = 0;
                         break;
                     default:
-                        lb_kvadratna.Content = kvadratna;
-                        lb_apsolutna.Content = apsolutna;
+                        lb_kvadratna.Content = kvadratnaDevijacija;
+                        lb_apsolutna.Content = apsolutnaDevijacija;
                         break;
                 }
             }
@@ -196,7 +207,7 @@ namespace UserInterface
 
             if (!(sifra.Equals(String.Empty)) && !(ime.Equals(String.Empty)))
             {
-                kontoler.UpisiGPUBazu(sifra.ToUpper(), ime);
+                kontoler.UpisiGPUBazu(sifra, ime);
                 MessageBox.Show("Zavrsen upis u bazu", "Baza upis!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
@@ -207,9 +218,16 @@ namespace UserInterface
 
         private void btn_exportXML_Click(object sender, RoutedEventArgs e)
         {
-            if (!lb_apsolutna.Content.Equals(string.Empty) && lb_kvadratna.Content.Equals(lb_kvadratna.Content) &&
-                !tb_uneto_podrucje.Text.Equals(string.Empty) && dp_kraja.SelectedDate.GetValueOrDefault() != DateTime.MinValue &&
-                dp_pocetak.SelectedDate.GetValueOrDefault() != DateTime.MinValue)
+            string oblast = tb_uneto_podrucje.Text;
+            DateTime pocetak = dp_pocetak.SelectedDate.GetValueOrDefault();
+            DateTime kraj = dp_kraja.SelectedDate.GetValueOrDefault();
+
+
+            if (string.IsNullOrEmpty(oblast) || pocetak == DateTime.MinValue || kraj == DateTime.MaxValue)
+                MessageBox.Show("Morate odabrati sve parametre za proračun i izvršiti računanje!", "Greška kod eksporta .XML fajla", MessageBoxButton.OK, MessageBoxImage.Error);
+            else if (kvadratnaDevijacija == -2 || kvadratnaDevijacija == -3 || kvadratnaDevijacija == -4)
+                MessageBox.Show("Nisu uneti dobri parametri proračuna, unesite druge podatke i opet izvršite proračun! \n Podatke nije moguće sačuvati u fajl!", "Greška kod eksporta .XML fajla", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
             {
                 string fileExtension = ".xml";
                 sfEksport.Filter = "Files (* " + fileExtension + ")|* " + fileExtension;
@@ -220,7 +238,7 @@ namespace UserInterface
                 {
                     string putanja = sfEksport.FileName;
                     writer.Write(dp_pocetak.SelectedDate.Value, dp_kraja.SelectedDate.Value, tb_uneto_podrucje.Text.ToUpper().Trim(), lb_kvadratna.Content.ToString(), lb_apsolutna.Content.ToString(), putanja);
-                    MessageBox.Show("Uspešno ste izvezli podatke u " + sfEksport.SafeFileName + "fajl!", "Uspešan upis u fajl!", MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show("Uspešno ste izvezli podatke u " + sfEksport.SafeFileName + " fajl!", "Uspešan upis u fajl!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }

@@ -21,6 +21,16 @@ namespace PristupBaziPodataka.DAO.DAOImpl
             }
         }
 
+
+        public bool PostojiPoId(string sifraOblasti)
+        {
+            using (IDbConnection connection = ConnectionUtil_Pooling.GetConnection())
+            {
+                connection.Open(); 
+                return PostojiPoId(sifraOblasti, connection);
+            }
+        }
+
         public bool PostojiPoId(string sifraOblasti, IDbConnection connection)
         {
             string query = "select * from EVIDENCIJA_PODRUCJA where sifra = :id_oblast";
@@ -38,17 +48,17 @@ namespace PristupBaziPodataka.DAO.DAOImpl
         private void Upisi(string sifraOblasti, string ime, IDbConnection connection)
         {
 
-            String insertSql = "insert into EVIDENCIJA_PODRUCJA (sifra, ime) values (:id_oblasti, :ime)";
-            String updateSql = "update EVIDENCIJA_PODRUCJA set sifra = :id_oblasti, ime = :ime";
+            String insertSql = "insert into EVIDENCIJA_PODRUCJA (ime, sifra) values (:ime , :id_oblasti)";
+            String updateSql = "update EVIDENCIJA_PODRUCJA set ime = :ime where sifra = :id_oblasti";
 
             using (IDbCommand command = connection.CreateCommand())
             {
                 command.CommandText = PostojiPoId( sifraOblasti, connection) ? updateSql : insertSql;
-                ParameterUtil.AddParameter(command, "id_oblasti", DbType.String);
                 ParameterUtil.AddParameter(command, "ime", DbType.String);
+                ParameterUtil.AddParameter(command, "id_oblasti", DbType.String);
                 command.Prepare();
-                ParameterUtil.SetParameterValue(command, "id_oblasti", sifraOblasti);
                 ParameterUtil.SetParameterValue(command, "ime", ime);
+                ParameterUtil.SetParameterValue(command, "id_oblasti", sifraOblasti);
                 command.ExecuteNonQuery();
             }
         }
