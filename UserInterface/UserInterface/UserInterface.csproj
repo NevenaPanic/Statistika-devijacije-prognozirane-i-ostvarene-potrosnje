@@ -111,6 +111,10 @@
       <Project>{c3939d05-1cb4-44fc-b335-40f59a470fed}</Project>
       <Name>ValidatorPodataka</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WriterXML\WriterXML.csproj">
+      <Project>{884e757b-d0f2-4bb4-95a3-16d0e62da057}</Project>
+      <Name>WriterXML</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

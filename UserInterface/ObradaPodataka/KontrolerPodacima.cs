@@ -13,6 +13,7 @@ namespace ObradaPodataka
     public class KontrolerPodacima
     {
         PotrosnjaDAO p = new PotrosnjaDAO();
+        GeografskoPodrucjeDAO g = new GeografskoPodrucjeDAO();
         public KontrolerPodacima() { }
 
         public List<Potrosnja> ProcitajFajl(string putanja)
@@ -58,14 +59,62 @@ namespace ObradaPodataka
             p.UpisiSvePotrosnje(ostvarena, "OSTVARENA_POTROSNJA");
         }
 
-        public double ApsoltnaDevijacijaPotrosnje(DateTime pocetakIntervala, DateTime krajIntervala, string oblast)
+        public double ApsoltnaDevijacijaPotrosnje(DateTime pocetakIntervala, DateTime krajIntervala, string oblast) // | (ostvarena - prognozirana) / ostvarena * 100 |
         {
-            return p.ApsolutnaDevijacija(pocetakIntervala, krajIntervala, oblast);
+            List<Potrosnja> prognozirana = p.SvePotrosnjeIntervala(pocetakIntervala, krajIntervala, oblast, "PROGNOZIRANA_POTROSNJA");
+            List<Potrosnja> ostvarena = p.SvePotrosnjeIntervala(pocetakIntervala, krajIntervala, oblast, "OSTVARENA_POTROSNJA");
+
+            if (prognozirana.Count == 0)
+                return -2;                      // nema podataka za prognoziranu potrosnju
+            else if (ostvarena.Count == 0)
+                return -3;                      // nema podataka za ostvarenu potrosnju
+
+            for (int i = 0; i < prognozirana.Count; i += 24)
+            {
+                if (ostvarena[i].DatumPotrosnje != prognozirana[i].DatumPotrosnje)
+                    return -4;                  // ne slazu se podaci unutar baze
+            }
+
+            double rezultat = 0;
+
+            for (int i = 0; i < ostvarena.Count; i++)
+            {
+                rezultat += Math.Abs((((ostvarena[i].Kolicina - prognozirana[i].Kolicina) * 100 ) / ostvarena[i].Kolicina));
+            }
+
+            return rezultat / ostvarena.Count;
         }
 
         public double KvadratnaDevijacijaPotrosnje(DateTime pocetakIntervala, DateTime krajIntervala, string oblast)
         {
-            return p.KvadratnaDevijacija(pocetakIntervala, krajIntervala, oblast);
+            List<Potrosnja> prognozirana = p.SvePotrosnjeIntervala(pocetakIntervala, krajIntervala, oblast, "PROGNOZIRANA_POTROSNJA");
+            List<Potrosnja> ostvarena = p.SvePotrosnjeIntervala(pocetakIntervala, krajIntervala, oblast, "OSTVARENA_POTROSNJA");
+
+            if (prognozirana.Count == 0)
+                return -2;                      // nema podataka za prognoziranu potrosnju
+            else if (ostvarena.Count == 0)
+                return -3;                      // nema podataka za ostvarenu potrosnju
+
+            for (int i = 0; i < prognozirana.Count; i += 24)
+            {
+                if (ostvarena[i].DatumPotrosnje != prognozirana[i].DatumPotrosnje)
+                    return -4;                  // ne slazu se podaci unutar baze
+            }
+
+            double rezultat = 0;
+
+            for (int i = 0; i < ostvarena.Count; i++)
+            {
+                rezultat += Math.Pow(((ostvarena[i].Kolicina - prognozirana[i].Kolicina) / ostvarena[i].Kolicina * 100), 2);
+            }
+            rezultat =  Math.Sqrt(rezultat);
+
+            return rezultat;
+        }
+
+        public void UpisiGPUBazu(string sifraOblasti, string imeOblasti)
+        {
+            g.UpisiGP(sifraOblasti, imeOblasti);
         }
 
     }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObradaPodataka", "ObradaPod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PristupBaziPodataka", "PristupBaziPodataka\PristupBaziPodataka.csproj", "{C0062767-CCFC-475A-A61C-1F1BDE4E6239}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterXML", "WriterXML\WriterXML.csproj", "{884E757B-D0F2-4BB4-95A3-16D0E62DA057}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0062767-CCFC-475A-A61C-1F1BDE4E6239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{884E757B-D0F2-4BB4-95A3-16D0E62DA057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{884E757B-D0F2-4BB4-95A3-16D0E62DA057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{884E757B-D0F2-4BB4-95A3-16D0E62DA057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{884E757B-D0F2-4BB4-95A3-16D0E62DA057}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,7 +28,7 @@ namespace DeljeniPodaci
 
         public DateTime DatumPotrosnje { get => datumPotrosnje; set => datumPotrosnje = value; }
         public int Sat { get => sat; set => sat = value; }
-        public float Koliicina { get => kolicina; set => kolicina = value; }
+        public float Kolicina { get => kolicina; set => kolicina = value; }
         public string SifraOblasti { get => sifraOblasti; set => sifraOblasti = value; }
         public string ImeFajla { get => imeFajla; set => imeFajla = value; }
         public DateTime VremeUcitavanjaFajla { get => vremeUcitavanjaFajla; set => vremeUcitavanjaFajla = value; }
