@@ -1,0 +1,6 @@
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\DeljeniPodaci\bin\Debug\DeljeniPodaci.dll
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\DeljeniPodaci\bin\Debug\DeljeniPodaci.pdb
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\DeljeniPodaci\obj\Debug\DeljeniPodaci.csprojAssemblyReference.cache
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\DeljeniPodaci\obj\Debug\DeljeniPodaci.csproj.CoreCompileInputs.cache
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\DeljeniPodaci\obj\Debug\DeljeniPodaci.dll
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\DeljeniPodaci\obj\Debug\DeljeniPodaci.pdb

@@ -4,35 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserInterface.ModeliPodataka
+namespace DeljeniPodaci
 {
     public class Potrosnja
     {
         DateTime datumPotrosnje;
-        uint sat;
+        int sat;
         float kolicina;
-        string oblast;
-
+        string sifraOblasti;
         string imeFajla;
         DateTime vremeUcitavanjaFajla;
 
-
         public Potrosnja() { }
-        public Potrosnja(DateTime datumPotrosnje, uint sat, float kolicina, string oblast, string imeFajla, DateTime vremeUcitavanjaFajla)
+        public Potrosnja(DateTime datumPotrosnje, int sat, float kolicina, string sifraOblasti, string imeFajla, DateTime vremeUcitavanjaFajla)
         {
             this.datumPotrosnje = datumPotrosnje;
             this.sat = sat;
             this.kolicina = kolicina;
-            this.oblast = oblast;
+            this.sifraOblasti = sifraOblasti;
             this.imeFajla = imeFajla;
             this.vremeUcitavanjaFajla = vremeUcitavanjaFajla;
         }
 
         public DateTime DatumPotrosnje { get => datumPotrosnje; set => datumPotrosnje = value; }
-        public uint Sat { get => sat; set => sat = value; }
+        public int Sat { get => sat; set => sat = value; }
         public float Koliicina { get => kolicina; set => kolicina = value; }
-        public string Oblast { get => oblast; set => oblast = value; }
+        public string SifraOblasti { get => sifraOblasti; set => sifraOblasti = value; }
         public string ImeFajla { get => imeFajla; set => imeFajla = value; }
         public DateTime VremeUcitavanjaFajla { get => vremeUcitavanjaFajla; set => vremeUcitavanjaFajla = value; }
+
+        public override string ToString()
+        {
+            string r = "\n[DATUM CITANJA]: " + vremeUcitavanjaFajla;
+            r += "\n\t[DATUM POTROSNJE]: " + datumPotrosnje;
+            r += "\n\t[SAT]: " + sat;
+            r += "\n\t[KOLICINA]: " + kolicina;
+            r += "\n\t[SIFRA OBLASTI]: " + sifraOblasti;
+            r += "\n\t[IME FAJLA]: " + imeFajla;
+
+            return r;
+        }
     }
 }

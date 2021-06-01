@@ -1,0 +1,10 @@
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\bin\Debug\ValidatorPodataka.exe.config
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\bin\Debug\ValidatorPodataka.exe
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\bin\Debug\ValidatorPodataka.pdb
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\obj\Debug\ValidatorPodataka.csprojAssemblyReference.cache
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\obj\Debug\ValidatorPodataka.csproj.CoreCompileInputs.cache
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\obj\Debug\ValidatorPodataka.exe
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\obj\Debug\ValidatorPodataka.pdb
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\bin\Debug\DeljeniPodaci.dll
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\bin\Debug\DeljeniPodaci.pdb
+C:\Users\neven\OneDrive\Desktop\RES Projekat\UserInterface\ValidatorPodataka\obj\Debug\ValidatorPodataka.csproj.CopyComplete

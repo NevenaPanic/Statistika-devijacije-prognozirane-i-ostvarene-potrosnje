@@ -9,7 +9,7 @@
 
 
     <Canvas Height="450" Width="800">
-        <Path Stroke="#FF192638" StrokeThickness="2" MouseLeftButtonDown="Path_MouseLeftButtonDown" Canvas.Left="-0.8">
+        <Path Stroke="#FF192638" StrokeThickness="2"  Canvas.Left="-0.8">
             <Path.Fill>
                 <SolidColorBrush Color="#9bcdcf"/>
             </Path.Fill>
@@ -29,11 +29,11 @@
             </Path.Data>
         </Path>
         <Label x:Name="lb_nos_fajlova" Content="Unos fajlova za očitavanje:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="66" Canvas.Top="70"/>
-        <Button x:Name="btn_ocitaj_fajl_ocekivane"  Content="Učitaj fajl očekivane potrošnje" Background="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="115" Click="btn_ocitaj_fajl_ocekivane_Click"/>
-        <Label x:Name="lb_ocitan_fajl_ocekivane" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Height="20" Canvas.Left="66" Canvas.Top="140"/>
-        <Button x:Name="btn_ocitaj_fajl_ostvarene" Content="Učitaj fajl ostvarene potrošnje" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="168"/>
-        <Label x:Name="lb_ocitan_fajl_ostvarene" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Height="20" Canvas.Left="66" Canvas.Top="194"/>
-        <Button x:Name="btn_ucitaj" Content="Ucitaj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="230" />
+        <Button x:Name="btn_ocitaj_fajl_prognozirane"  Content="Učitaj fajl očekivane potrošnje" Background="DarkGray" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="115" Click="btn_ocitaj_fajl_ocekivane_Click"/>
+        <Label x:Name="lb_ocitan_fajl_ocekivane" HorizontalContentAlignment="Center" VerticalContentAlignment = "Center"  BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Height="30" Canvas.Left="66" Canvas.Top="140"/>
+        <Button x:Name="btn_ocitaj_fajl_ostvarene" Content="Učitaj fajl ostvarene potrošnje" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="186" Click="btn_ocitaj_fajl_ostvarene_Click"/>
+        <Label x:Name="lb_ocitan_fajl_ostvarene" HorizontalContentAlignment="Center" VerticalContentAlignment = "Center" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Height="30" Canvas.Left="66" Canvas.Top="210"/>
+        <Button x:Name="btn_ucitaj" Content="Ucitaj" Background="DarkGray"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="176" Canvas.Left="66" Canvas.Top="273" />
         <Label x:Name="lb_nos_za_filter" Content="Unos podataka proračuna:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="70"/>
         <Label x:Name="dp_pocetka" Content="Datum početka:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="103"/>
         <DatePicker x:Name="lb_pocetak" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Canvas.Left="295" Canvas.Top="129"/>
