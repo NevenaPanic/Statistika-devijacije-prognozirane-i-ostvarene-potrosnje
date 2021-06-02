@@ -1,0 +1,22 @@
+CREATE TABLE OSTVARENA_POTROSNJA(
+    datumPotrosnje DATE,
+    sat INTEGER NOT NULL,
+    kolicina FLOAT,
+    sifraOblasti varchar(30),
+    imeFajla varchar(30),
+    vremeUcitavanjaFajla varchar(30)
+);
+
+CREATE TABLE PROGNOZIRANA_POTROSNJA(
+    datumPotrosnje DATE,
+    sat INTEGER NOT NULL,
+    kolicina FLOAT,
+    sifraOblasti varchar(30),
+    imeFajla varchar(30),
+    vremeUcitavanjaFajla varchar(30)
+);
+ 
+CREATE TABLE EVIDENCIJA_PODRUCJA(
+    ime varchar(30),
+    sifra varchar(10)
+);
